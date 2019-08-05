@@ -1,0 +1,21 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+*~
+myvenv
+/static
+.DS_Store
+
+
+# Backup files #
+*.bak
+
+
+
+##project
+
+settings.py

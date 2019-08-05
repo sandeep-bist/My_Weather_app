@@ -1,0 +1,121 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{weather.city}} | Weather Today  </title>
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Baloo+Chettan&display=swap" rel="stylesheet">    
+<link href="https://fonts.googleapis.com/css?family=Concert+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lekton&display=swap" rel="stylesheet">
+<style>
+        
+             .Drizzle{
+                background-image: url("https://images.unsplash.com/photo-1466454709953-f4b128c56f48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
+                background-color: #dfe6e9;
+                background-size:cover;
+	            background-repeat:no-repeat; 
+                }
+                .Rain{
+                background-image: url("https://images.wallpaperscraft.com/image/rain_silhouette_city_142452_1280x720.jpg");
+                background-color: #ffe6e9;
+                background-size:cover;
+	            background-repeat:no-repeat;
+                
+                }
+
+           .Clouds{
+                background-image: url("https://images.wallpaperscraft.com/image/clouds_sky_fiery_120809_1280x720.jpg"); opacity:1;
+                background-color: #dfe6e9;
+                background-size:cover;
+	            background-repeat:no-repeat; 
+                }
+           .Fog{
+                background-image: url("https://images.wallpaperscraft.com/image/fog_road_trees_131279_1280x720.jpg");
+                background-color: #dfe7e9;
+                background-size:cover;
+	            background-repeat:no-repeat;
+                }
+           .Clear{
+                background-image: url("https://images.wallpaperscraft.com/image/falls_break_look_landscape_tranquillity_clouds_height_from_above_sky_clearly_brightly_62953_1280x720.jpg");
+                background-color: #ffe2e9;
+                background-size:cover;
+	            background-repeat:no-repeat;    
+           }
+           .Mist{
+                background-image: url("https://images.wallpaperscraft.com/image/road_alley_turn_fog_asphalt_mist_morning_autumn_48149_1280x720.jpg");
+                background-color: #dfe639;
+                background-size:cover;
+	            background-repeat:no-repeat;
+            }
+           .Haze{
+                background-image: url("https://images.wallpaperscraft.com/image/trees_fog_haze_fence_14635_1280x720.jpg");
+                background-color: #dfe6f9;
+                background-size:cover;
+	            background-repeat:no-repeat;
+            }
+           .Thunderstorm{
+                background-image: url("https://images.wallpaperscraft.com/image/lightning_thunderstorm_cloudy_122456_1280x720.jpg");
+                background-color: #dfe6e9;
+                background-size:cover;
+	            background-repeat:no-repeat;
+            }
+            .footer{
+                padding: 3rem 1.5rem 1rem;
+                
+            }
+            .temp{
+                background-color: transparent;
+            }
+           
+         </style>
+</head>
+<body class="{{weather.main}} img-fluid ">
+
+<div class="container-fluid" >
+   <div class="row">
+            <div class="col-md-7 text-center">
+                <h1 class="display-1 ml-2"style="font-family: 'Concert One', cursive;" >{{weather.city}}</h1>
+                <h3 >Longitude-{{weather.lon}}  Latitude-{{weather.lat}}  </h3>
+                <h1 class="display-2" style="font-family: 'Baloo Chettan', cursive;color:grey">{{weather.country}}</h1>
+                
+                <h1 class="display-3" style="font-family: 'Baloo Chettan', cursive; color:grey">Temperature ={{weather.temp}}°C</h1>
+                <div class="row   temp " >
+                   <div class="col-md-6"> <h1 class="display-5 font-weight-bold"><span style="color:white; ">Min-temp={{weather.temp_min}}°C</span></h1></div>
+                    <div class="col-md-6" ><h1 class="display-5 font-weight-bold"> <span style="color:black;">Max-temp={{weather.temp_max}}°C</span> </h1></div>
+                </div>    
+                
+            </div>
+            <div class="col-md-5">
+                <img  src="https://openweathermap.org/img/w/{{weather.icon}}.png" alt="icon not found">
+                <div style="font-family: 'Baloo Chettan', cursive;" class="pl-5">
+               
+                   <h1 ><span class="mr-2"><img style="height: 30px;width:30px;" src={% static 'clouds.png' %}></span>Clouds-{{weather.clouds}}  </h1><br>
+                   <h1 ><span class="mr-2"><img style="height: 30px;width:30px;" src={% static 'wind.png' %}></span>Wind-{{weather.speed}}km/h  </h1><br>
+                   <h1 ><span class="mr-2"><img style="height: 30px;width:30px;" src={% static 'humidity.png' %}></span>Humidity-{{weather.humidity}}  </h1><br>
+                   <h1 ><span class="mr-2"><img style="height: 30px;width:30px;" src={% static 'pressure.png' %}></span>Pressure-{{weather.pressure}}  </h1>
+                  
+                         
+
+
+                </div>
+            </div>
+             
+ </div>
+ <div class="footer text-center">
+        <h1 class="display-1"  ><span class="font-weight-bold"style="font-family: 'Baloo Chettan', cursive;">Status:</span><span>{{weather.description|capfirst}}</span></h1>
+              
+ </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script>
+</script>
+</body>
+</html>

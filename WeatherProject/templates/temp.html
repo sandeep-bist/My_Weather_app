@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Forecast </title>
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        
+           #bg {
+                    background-image: url("https://images.pexels.com/photos/1253748/pexels-photo-1253748.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+                
+                }
+        .row1{
+            background-color:#ffcccc;
+             }
+
+         .row2{
+               background-color:#7efff5;
+                     }
+          .footer {
+                background-color: darkslategray;
+                padding: 3rem 1.5rem 6rem;
+                }
+    </style>
+</head>
+<body >
+    <div class="container-fluid m-0 p-0" id="bg">
+<header style="background-color:#1289A7;" >
+  <nav class="navbar navbar-expand-lg navbar-dark m-0" style="background-color:#1289A7;" >
+      <a class="navbar-brand offset-4" href="#"><h2>Hey! Know your City Weather</h2></a>
+  </nav>
+
+</header>
+<div class="container">
+        <div class="my-4 offset-4">
+            <form class="form-inline " method="POST">
+   `            <div class="form-group mx-sm-3 mb-2">
+                    {% csrf_token %}
+                    {{ form.city }}
+                </div>
+                <button class="btn btn-secondary btn-lg"  type="submit">Add City</button>
+              
+
+            </form>
+        </div>
+        <div class="my-2 col-md-8 offset-3 text-center">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}">
+                        <h3>{{message}}</h3>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    <div class="border rounded  border-light col-md-8 offset-3" style="background-color:#f1f2f6;">
+
+            <div class="col-md-12 ">
+                {% for weather in weather_detail %}
+
+                <div class="row my-2 {% cycle 'row1 ' 'row2 ' %}">
+
+                        <div class="col-md-1 mr-2 ">
+                            <img class="border rounded-circle border-warning mt-4" src="https://openweathermap.org/img/w/{{weather.icon}}.png" alt="icon not found">
+                        </div>
+
+                    <div class="col-md-6 ml-2 mt-2 mr-5 mainbox"><h3><a href="{% url 'detail' weather.city %}" class="text-decoration-none" style="color:black;">{{weather.city}}</a> ({{weather.country}})</h3>
+                        <!--<h5 >Lon-{{weather.lon}} Lat-{{weather.lat}}</h5>-->
+                        <!--<span style="hidden:true;"> Sunrise- {{weather.sunrise}} SunSet-{{weather.sunset}}</span>-->
+                        <h4 > Today Temperature ={{weather.temp}}°C</h4>
+                        <p ><span style="color:green;">Min-temp={{weather.temp_min}}°C</span> <span style="color:red;">Max-temp={{weather.temp_max}}°C</span></p> <span >Wind-{{weather.speed}}km/h  </span>
+                        <h5 >Status:-<span style="font-size:19px;"> {{weather.description}}</span></h5>
+                    
+                    </div>
+
+
+
+                            <div class=" col-md-2 mt-2 ml-5 float-right " >
+                                <a href="{% url 'delete' weather.city.id%}">
+                                    <button type="button" class="close" aria-label="Close">
+                                          <span class="float-right" aria-hidden="true">&times;</span>
+                                    </button>
+                                </a>
+                            </div>
+
+
+
+                        </div>
+
+
+                {%  endfor %}
+            </div>
+    {{existed}}
+
+    </div>
+</div>
+<footer class="footer"></footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+    $(".mainbox").click(function() {
+        window.location = $(this).find("a").attr("href");
+        return false;
+});
+
+
+
+// $(".cityclass").click(function(){
+//     var city_id = this.id.toString()
+//     console.log(city_id)
+    
+//     document.getElementById(city_id).checked = true; 
+//     cit=document.getElementById(city_id).value
+//     console.log(cit)
+
+    // document.getElementById(city_id).checked = true;
+    // document.getElementById(city_id).value = "favorite"
+    // $('#city_id').attr('id',id +'c')
+    // document.getElementById(city_id).setAttribute
+    // cit=document.getElementById(city_id).value
+    // console.log(cit)
+    // console.log()
+// })
+// $(".cityclass").click(function(){
+//     var city_id = this.id.toString()
+//     document.getElementById(city_id +"c").checked = false;
+//     document.getElementById(city_id).value="unfavorite"
+//     x=substring(city_id.length - 1, city_id.length)
+//     console.log("value of x" + x)
+//     // $('#city_id').attr('id',id.toString)
+//     // cit=document.getElementById(city_id).value
+//     // console.log(cit)
+// })
+
+
+</script>
+</div>
+</body>
+</html>
+
+
